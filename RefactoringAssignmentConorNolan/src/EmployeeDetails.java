@@ -307,9 +307,13 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			departmentCombo.setSelectedIndex(countDep);
 			salaryField.setText(format.format(thisEmployee.getSalary()));
 			if (thisEmployee.getFullTime() == true)
+			{
 				fullTimeCombo.setSelectedIndex(1);
+			}
 			else
+			{
 				fullTimeCombo.setSelectedIndex(2);
+			}
 		}
 		change = false;
 	}
@@ -805,136 +809,121 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		String fileNameChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-";
 		StringBuilder fileName = new StringBuilder();
 		Random rnd = new Random();
-		// loop until 20 character long file name is generated
 		while (fileName.length() < 20) {
 			int index = (int) (rnd.nextFloat() * fileNameChars.length());
 			fileName.append(fileNameChars.charAt(index));
 		}
 		String generatedfileName = fileName.toString();
 		return generatedfileName;
-	}// end getFileName
+	}
 
-	// create file with generated file name when application is opened
 	private void createRandomFile() {
 		generatedFileName = getFileName() + ".dat";
-		// assign generated file name to file
 		file = new File(generatedFileName);
-		// create file
 		application.createFile(file.getName());
-	}// end createRandomFile
+	}
 
-	// action listener for buttons, text field and menu items
 	public void actionPerformed(ActionEvent e) {
 
-		if (e.getSource() == closeApp) {
-			if (checkInput() && !checkForChanges())
-				exitApp();
-		} else if (e.getSource() == open) {
-			if (checkInput() && !checkForChanges())
-				openFile();
-		} else if (e.getSource() == save) {
-			if (checkInput() && !checkForChanges())
-				saveFile();
-			change = false;
-		} else if (e.getSource() == saveAs) {
-			if (checkInput() && !checkForChanges())
-				saveFileAs();
-			change = false;
-		} else if (e.getSource() == searchById) {
-			if (checkInput() && !checkForChanges())
-				displaySearchByIdDialog();
-		} else if (e.getSource() == searchBySurname) {
-			if (checkInput() && !checkForChanges())
-				displaySearchBySurnameDialog();
-		} else if (e.getSource() == searchId || e.getSource() == searchByIdField)
+		if (e.getSource() == searchId || e.getSource() == searchByIdField)
 			searchEmployeeById();
 		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
 			searchEmployeeBySurname();
-		else if (e.getSource() == saveChange) {
-			if (checkInput() && !checkForChanges())
-				;
-		} else if (e.getSource() == cancelChange)
+		else if (e.getSource() == cancelChange)
 			cancelChange();
-		else if (e.getSource() == firstItem || e.getSource() == first) {
-			if (checkInput() && !checkForChanges()) {
+		else if (checkInput() && !checkForChanges()) {
+			if (e.getSource() == closeApp) {
+				exitApp();
+			}
+			else if (e.getSource() == open) {
+				openFile();
+			}
+			else if (e.getSource() == save) {
+				saveFile();
+				change = false;
+			}
+			else if (e.getSource() == saveAs) {
+				saveFileAs();
+				change = false;
+			}
+			else if (e.getSource() == searchById) {
+				displaySearchByIdDialog();
+			}
+			else if (e.getSource() == searchBySurname) {
+				displaySearchBySurnameDialog();
+			}
+			else if (e.getSource() == saveChange) {
+				;
+			}
+			else if (e.getSource() == firstItem || e.getSource() == first) {
 				firstRecord();
 				displayRecords(currentEmployee);
 			}
-		} else if (e.getSource() == prevItem || e.getSource() == previous) {
-			if (checkInput() && !checkForChanges()) {
+			else if (e.getSource() == prevItem || e.getSource() == previous) {
 				previousRecord();
 				displayRecords(currentEmployee);
 			}
-		} else if (e.getSource() == nextItem || e.getSource() == next) {
-			if (checkInput() && !checkForChanges()) {
+			else if (e.getSource() == nextItem || e.getSource() == next) {
 				nextRecord();
 				displayRecords(currentEmployee);
 			}
-		} else if (e.getSource() == lastItem || e.getSource() == last) {
-			if (checkInput() && !checkForChanges()) {
+			else if (e.getSource() == lastItem || e.getSource() == last) {
 				lastRecord();
 				displayRecords(currentEmployee);
 			}
-		} else if (e.getSource() == listAll || e.getSource() == displayAll) {
-			if (checkInput() && !checkForChanges())
+			else if (e.getSource() == listAll || e.getSource() == displayAll) {
 				if (isSomeoneToDisplay())
 					displayEmployeeSummaryDialog();
-		} else if (e.getSource() == create || e.getSource() == add) {
-			if (checkInput() && !checkForChanges())
+			}
+			else if (e.getSource() == create || e.getSource() == add) {
 				new AddRecordDialog(EmployeeDetails.this);
-		} else if (e.getSource() == modify || e.getSource() == edit) {
-			if (checkInput() && !checkForChanges())
+			}
+			else if (e.getSource() == modify || e.getSource() == edit) {
 				editDetails();
-		} else if (e.getSource() == delete || e.getSource() == deleteButton) {
-			if (checkInput() && !checkForChanges())
+			}
+			else if (e.getSource() == delete || e.getSource() == deleteButton) {
 				deleteRecord();
-		} else if (e.getSource() == searchBySurname) {
-			if (checkInput() && !checkForChanges())
+			}
+			else if (e.getSource() == searchBySurname) {
 				new SearchBySurnameDialog(EmployeeDetails.this);
+			}
 		}
-	}// end actionPerformed
+		
+	}
 
-	// content pane for main dialog
 	private void createContentPane() {
 		setTitle("Employee Details");
-		createRandomFile();// create random file name
+		createRandomFile();
 		JPanel dialog = new JPanel(new MigLayout());
 
-		setJMenuBar(menuBar());// add menu bar to frame
-		// add search panel to frame
+		setJMenuBar(menuBar());
 		dialog.add(searchPanel(), "width 400:400:400, growx, pushx");
-		// add navigation panel to frame
 		dialog.add(navigPanel(), "width 150:150:150, wrap");
-		// add button panel to frame
 		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
-		// add details panel to frame
 		dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
 
 		JScrollPane scrollPane = new JScrollPane(dialog);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		addWindowListener(this);
-	}// end createContentPane
+	}
 
-	// create and show main dialog
 	private static void createAndShowGUI() {
 
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.createContentPane();// add content pane to frame
+		frame.createContentPane();
 		frame.setSize(760, 600);
 		frame.setLocation(250, 200);
 		frame.setVisible(true);
-	}// end createAndShowGUI
+	}
 
-	// main method
 	public static void main(String args[]) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
 			}
 		});
-	}// end main
+	}
 
-	// DocumentListener methods
 	public void changedUpdate(DocumentEvent d) {
 		change = true;
 		new JTextFieldLimit(20);
@@ -950,14 +939,11 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		new JTextFieldLimit(20);
 	}
 
-	// ItemListener method
 	public void itemStateChanged(ItemEvent e) {
 		change = true;
 	}
 
-	// WindowsListener methods
 	public void windowClosing(WindowEvent e) {
-		// exit application
 		exitApp();
 	}
 
@@ -978,4 +964,4 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 	public void windowOpened(WindowEvent e) {
 	}
-}// end class EmployeeDetails
+}
