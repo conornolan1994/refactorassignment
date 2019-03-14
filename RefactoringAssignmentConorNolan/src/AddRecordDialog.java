@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,12 +20,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.miginfocom.swing.MigLayout;
 
 public class AddRecordDialog extends JDialog implements ActionListener {
 	JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
+	private long currentByteStart = 0;
+	private RandomFile application = new RandomFile();
+	private File file;
 	JButton save, cancel;
 	EmployeeDetails parent;
 	// constructor for add record dialog
@@ -87,7 +92,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		cancel.addActionListener(this);
 
 		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
-		// loop through all panel components and add fonts and listeners
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(this.parent.font1);
 			if (empDetails.getComponent(i) instanceof JComboBox) {
@@ -96,7 +100,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			else if(empDetails.getComponent(i) instanceof JTextField){
 				field = (JTextField) empDetails.getComponent(i);
 				if(field == ppsField)
-					field.setDocument(new JTextFieldLimit(9));
+					field.setDocument(new JTextFieldLimit(7));
 				else
 				field.setDocument(new JTextFieldLimit(20));
 			}
@@ -112,7 +116,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 		if (((String) fullTimeCombo.getSelectedItem()).equalsIgnoreCase("Yes"))
 			fullTime = true;
-		// create new Employee record with details from text fields
 		theEmployee = new Employee(Integer.parseInt(idField.getText()), ppsField.getText().toUpperCase(), surnameField.getText().toUpperCase(),
 				firstNameField.getText().toUpperCase(), genderCombo.getSelectedItem().toString().charAt(0),
 				departmentCombo.getSelectedItem().toString(), Double.parseDouble(salaryField.getText()), fullTime);
@@ -120,51 +123,48 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent.addRecord(theEmployee);
 		this.parent.displayRecords(theEmployee);
 	}
-
-	// check for input in text fields
 	public boolean checkInput() {
 		boolean valid = true;
-		// if any of inputs are in wrong format, colour text field and display message
-		if (ppsField.getText().equals("")) {
-			ppsField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
+//		if (ppsField.getText().equals("")) {
+//			ppsField.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
 		if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
 			ppsField.setBackground(new Color(255, 150, 150));
 			valid = false;
 		}
-		if (surnameField.getText().isEmpty()) {
-			surnameField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
-		if (firstNameField.getText().isEmpty()) {
-			firstNameField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
-		if (genderCombo.getSelectedIndex() == 0) {
-			genderCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
-		if (departmentCombo.getSelectedIndex() == 0) {
-			departmentCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
-		try {// try to get values from text field
-			Double.parseDouble(salaryField.getText());
-			// check if salary is greater than 0
-			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(new Color(255, 150, 150));
-				valid = false;
-			}
-		}
-		catch (NumberFormatException num) {
-			salaryField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
-		if (fullTimeCombo.getSelectedIndex() == 0) {
-			fullTimeCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		}
+//		if (surnameField.getText().isEmpty()) {
+//			surnameField.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
+//		if (firstNameField.getText().isEmpty()) {
+//			firstNameField.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
+//		if (genderCombo.getSelectedIndex() == 0) {
+//			genderCombo.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
+//		if (departmentCombo.getSelectedIndex() == 0) {
+//			departmentCombo.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
+//		try {// try to get values from text field
+//			Double.parseDouble(salaryField.getText());
+//			// check if salary is greater than 0
+//			if (Double.parseDouble(salaryField.getText()) < 0) {
+//				salaryField.setBackground(new Color(255, 150, 150));
+//				valid = false;
+//			}
+//		}
+//		catch (NumberFormatException num) {
+//			salaryField.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
+//		if (fullTimeCombo.getSelectedIndex() == 0) {
+//			fullTimeCombo.setBackground(new Color(255, 150, 150));
+//			valid = false;
+//		}
 		return valid;
 	}// end checkInput
 

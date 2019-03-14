@@ -30,4 +30,6 @@ class JTextFieldLimit extends PlainDocument {
     else
     	JOptionPane.showMessageDialog(null, "For input " + limit + " characters maximum!");
   }
+  
+  
 }
