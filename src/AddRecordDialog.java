@@ -27,9 +27,6 @@ import net.miginfocom.swing.MigLayout;
 public class AddRecordDialog extends JDialog implements ActionListener {
 	JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
-	private long currentByteStart = 0;
-	private RandomFile application = new RandomFile();
-	private File file;
 	JButton save, cancel;
 	EmployeeDetails parent;
 	// constructor for add record dialog
@@ -59,31 +56,31 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-		empDetails.add(new JLabel("ID:"), "growx, pushx");
-		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("ID:"), MigLayoutVariables.migLayout2);
+		empDetails.add(idField = new JTextField(20),MigLayoutVariables.migLayout1);
 		idField.setEditable(false);
 		
 
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("PPS Number:"),MigLayoutVariables.migLayout2);
+		empDetails.add(ppsField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Surname:"), MigLayoutVariables.migLayout2);
+		empDetails.add(surnameField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("First Name:"), MigLayoutVariables.migLayout2);
+		empDetails.add(firstNameField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(this.parent.gender), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Gender:"), MigLayoutVariables.migLayout2);
+		empDetails.add(genderCombo = new JComboBox<String>(this.parent.gender), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(this.parent.department), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Department:"), MigLayoutVariables.migLayout2);
+		empDetails.add(departmentCombo = new JComboBox<String>(this.parent.department), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Salary:"), MigLayoutVariables.migLayout2);
+		empDetails.add(salaryField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(this.parent.fullTime), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Full Time:"), MigLayoutVariables.migLayout2);
+		empDetails.add(fullTimeCombo = new JComboBox<String>(this.parent.fullTime), MigLayoutVariables.migLayout1);
 
 		buttonPanel.add(save = new JButton("Save"));
 		save.addActionListener(this);
@@ -91,7 +88,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		buttonPanel.add(cancel = new JButton("Cancel"));
 		cancel.addActionListener(this);
 
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
+		empDetails.add(buttonPanel, MigLayoutVariables.migLayout3);
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(this.parent.font1);
 			if (empDetails.getComponent(i) instanceof JComboBox) {
@@ -132,16 +129,6 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		return valid;
 	}// end checkInput
 
-	// set text field to white colour
-//	public void setToWhite() {
-//		ppsField.setBackground(Colours.white);
-//		surnameField.setBackground(Colours.white);
-//		firstNameField.setBackground(Colours.white);
-//		salaryField.setBackground(Colours.white);
-//		genderCombo.setBackground(Colours.white);
-//		departmentCombo.setBackground(Colours.white);
-//		fullTimeCombo.setBackground(Colours.white);
-//	}
 
 	// action performed
 	public void actionPerformed(ActionEvent e) {
@@ -149,8 +136,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		if (e.getSource() == save) {
 			if (checkInput()) {
 				addRecord();// add record to file
-				dispose();// dispose 
-				dialog
+				dispose();// dispose dialog
 				this.parent.changesMade = true;
 			}
 			else {

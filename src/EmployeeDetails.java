@@ -129,7 +129,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		JPanel searchPanel = new JPanel(new MigLayout());
 
 		searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
-		searchPanel.add(new JLabel("Search by ID:"), "growx, pushx");
+		searchPanel.add(new JLabel("Search by ID:"), MigLayoutVariables.migLayout2);
 		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
@@ -187,16 +187,16 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private JPanel buttonPanel() {
 		JPanel buttonPanel = new JPanel();
 
-		buttonPanel.add(add = new JButton("Add Record"), "growx, pushx");
+		buttonPanel.add(add = new JButton("Add Record"), MigLayoutVariables.migLayout2);
 		add.addActionListener(this);
 		add.setToolTipText("Add new Employee Record");
-		buttonPanel.add(edit = new JButton("Edit Record"), "growx, pushx");
+		buttonPanel.add(edit = new JButton("Edit Record"), MigLayoutVariables.migLayout2);
 		edit.addActionListener(this);
 		edit.setToolTipText("Edit current Employee");
-		buttonPanel.add(deleteButton = new JButton("Delete Record"), "growx, pushx, wrap");
+		buttonPanel.add(deleteButton = new JButton("Delete Record"), MigLayoutVariables.migLayout1);
 		deleteButton.addActionListener(this);
 		deleteButton.setToolTipText("Delete current Employee");
-		buttonPanel.add(displayAll = new JButton("List all Records"), "growx, pushx");
+		buttonPanel.add(displayAll = new JButton("List all Records"), MigLayoutVariables.migLayout2);
 		displayAll.addActionListener(this);
 		displayAll.setToolTipText("List all Registered Employees");
 
@@ -210,30 +210,30 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
 
-		empDetails.add(new JLabel("ID:"), "growx, pushx");
-		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("ID:"), MigLayoutVariables.migLayout2);
+		empDetails.add(idField = new JTextField(20), MigLayoutVariables.migLayout1);
 		idField.setEditable(false);
 
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("PPS Number:"), MigLayoutVariables.migLayout2);
+		empDetails.add(ppsField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Surname:"), MigLayoutVariables.migLayout2);
+		empDetails.add(surnameField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("First Name:"), MigLayoutVariables.migLayout2);
+		empDetails.add(firstNameField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(gender), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Gender:"), MigLayoutVariables.migLayout2);
+		empDetails.add(genderCombo = new JComboBox<String>(gender), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(department), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Department:"), MigLayoutVariables.migLayout2);
+		empDetails.add(departmentCombo = new JComboBox<String>(department), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Salary:"), MigLayoutVariables.migLayout2);
+		empDetails.add(salaryField = new JTextField(20), MigLayoutVariables.migLayout1);
 
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), "growx, pushx, wrap");
+		empDetails.add(new JLabel("Full Time:"), MigLayoutVariables.migLayout2);
+		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), MigLayoutVariables.migLayout1);
 
 		buttonPanel.add(saveChange = new JButton("Save"));
 		saveChange.addActionListener(this);
@@ -244,7 +244,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		cancelChange.setVisible(false);
 		cancelChange.setToolTipText("Cancel edit");
 
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
+		empDetails.add(buttonPanel, MigLayoutVariables.migLayout3);
 
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(font1);
@@ -852,7 +852,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		}
 		else if (Validate.checkInput(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo) == false)
 		{
-			setToWhite();
+			Colours.setToWhite(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo);
 		}
 		
 	}
