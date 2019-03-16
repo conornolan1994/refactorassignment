@@ -258,13 +258,13 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				field.getDocument().addDocumentListener(this);
 			} 
 			else if (empDetails.getComponent(i) instanceof JComboBox) {
-				empDetails.getComponent(i).setBackground(Color.WHITE);
+				empDetails.getComponent(i).setBackground(Colours.white);
 				empDetails.getComponent(i).setEnabled(false);
 				((JComboBox<String>) empDetails.getComponent(i)).addItemListener(this);
 				((JComboBox<String>) empDetails.getComponent(i)).setRenderer(new DefaultListCellRenderer() {
 					
 					public void paint(Graphics g) {
-						setForeground(new Color(65, 65, 65));
+						setForeground(Colours.foreground);
 						super.paint(g);
 					}
 				});
@@ -410,10 +410,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} 
 		} 
 		catch (NumberFormatException e) {
-			searchByIdField.setBackground(new Color(255, 150, 150));
+			searchByIdField.setBackground(Colours.red);
 			JOptionPane.showMessageDialog(null, "Wrong ID format!");
 		} 
-		searchByIdField.setBackground(Color.WHITE);
+		searchByIdField.setBackground(Colours.white);
 		searchByIdField.setText("");
 	}
 
@@ -602,25 +602,25 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		boolean valid = true;
 		Validate.checkInput(ppsField, surnameField, firstNameField, genderCombo, departmentCombo, salaryField, fullTimeCombo);
 		if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), currentByteStart)) {
-			ppsField.setBackground(new Color(255, 150, 150));
+			ppsField.setBackground(Colours.red);
 			valid = false;
 		} 
 		
 		if (ppsField.isEditable())
-			setToWhite();
+			Colours.setToWhite(ppsField, surnameField, firstNameField, genderCombo, departmentCombo, salaryField, fullTimeCombo);
 
 		return valid;
 	}
 
-	private void setToWhite() {
-		ppsField.setBackground(UIManager.getColor("TextField.background"));
-		surnameField.setBackground(UIManager.getColor("TextField.background"));
-		firstNameField.setBackground(UIManager.getColor("TextField.background"));
-		salaryField.setBackground(UIManager.getColor("TextField.background"));
-		genderCombo.setBackground(UIManager.getColor("TextField.background"));
-		departmentCombo.setBackground(UIManager.getColor("TextField.background"));
-		fullTimeCombo.setBackground(UIManager.getColor("TextField.background"));
-	}
+//	private void setToWhite() {
+//		ppsField.setBackground(UIManager.getColor("TextField.background"));
+//		surnameField.setBackground(UIManager.getColor("TextField.background"));
+//		firstNameField.setBackground(UIManager.getColor("TextField.background"));
+//		salaryField.setBackground(UIManager.getColor("TextField.background"));
+//		genderCombo.setBackground(UIManager.getColor("TextField.background"));
+//		departmentCombo.setBackground(UIManager.getColor("TextField.background"));
+//		fullTimeCombo.setBackground(UIManager.getColor("TextField.background"));
+//	}
 
 	public void setEnabled(boolean booleanValue) {
 		boolean search;
