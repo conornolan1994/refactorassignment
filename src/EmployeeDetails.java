@@ -599,28 +599,20 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	public boolean checkInput() {
+		Validate validation = new Validate(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo);
 		boolean valid = true;
-		Validate.checkInput(ppsField, surnameField, firstNameField, genderCombo, departmentCombo, salaryField, fullTimeCombo);
+		Validate.checkInput(validation);
 		if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), currentByteStart)) {
 			ppsField.setBackground(Colours.red);
 			valid = false;
 		} 
 		
 		if (ppsField.isEditable())
-			Colours.setToWhite(ppsField, surnameField, firstNameField, genderCombo, departmentCombo, salaryField, fullTimeCombo);
+			Colours.setToWhite(validation);
 
 		return valid;
 	}
 
-//	private void setToWhite() {
-//		ppsField.setBackground(UIManager.getColor("TextField.background"));
-//		surnameField.setBackground(UIManager.getColor("TextField.background"));
-//		firstNameField.setBackground(UIManager.getColor("TextField.background"));
-//		salaryField.setBackground(UIManager.getColor("TextField.background"));
-//		genderCombo.setBackground(UIManager.getColor("TextField.background"));
-//		departmentCombo.setBackground(UIManager.getColor("TextField.background"));
-//		fullTimeCombo.setBackground(UIManager.getColor("TextField.background"));
-//	}
 
 	public void setEnabled(boolean booleanValue) {
 		boolean search;
@@ -786,14 +778,14 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
+		Validate validation = new Validate(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo);
 		if (e.getSource() == searchId || e.getSource() == searchByIdField)
 			searchEmployeeById();
 		else if (e.getSource() == searchSurname || e.getSource() == searchBySurnameField)
 			searchEmployeeBySurname();
 		else if (e.getSource() == cancelChange)
 			cancelChange();
-		else if (Validate.checkInput(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo) && !checkForChanges()) {
+		else if (Validate.checkInput(validation) && !checkForChanges()) {
 			if (e.getSource() == closeApp) {
 				exitApp();
 			}
@@ -850,9 +842,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 				new SearchBySurnameDialog(EmployeeDetails.this);
 			}
 		}
-		else if (Validate.checkInput(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo) == false)
+		else if (Validate.checkInput(validation) == false)
 		{
-			Colours.setToWhite(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo);
+			Colours.setToWhite(validation);
 		}
 		
 	}

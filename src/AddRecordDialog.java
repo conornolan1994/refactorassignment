@@ -121,7 +121,10 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent.displayRecords(theEmployee);
 	}
 	public boolean checkInput() {
+		Validate validation = new Validate(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo);
+
 		boolean valid = true;
+		Validate.checkInput(validation);
 		if (this.parent.correctPps(this.ppsField.getText().trim(), -1)) {
 			ppsField.setBackground(Colours.red);
 			valid = false;
@@ -132,6 +135,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 	// action performed
 	public void actionPerformed(ActionEvent e) {
+		Validate validation = new Validate(ppsField, surnameField, firstNameField,genderCombo, departmentCombo,  salaryField, fullTimeCombo);
 		// if chosen option save, save record to file
 		if (e.getSource() == save) {
 			if (checkInput()) {
@@ -141,7 +145,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-				Colours.setToWhite(ppsField, surnameField, firstNameField, genderCombo, departmentCombo, salaryField, fullTimeCombo);
+				Colours.setToWhite(validation);
 			}
 		}
 		else if (e.getSource() == cancel)

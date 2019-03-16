@@ -12,48 +12,58 @@ public class Validate {
 	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
 	private static long currentByteStart = 0;
 	private JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
-	private static RandomFile application = new RandomFile();
-	EmployeeDetails ed = new EmployeeDetails();
-	File file;
+	
+	public Validate(JTextField ppsField, JTextField surnameField, JTextField firstNameField, JComboBox genderCombo, JComboBox departmentCombo, JTextField salaryField,
+			  JComboBox fullTimeCombo) {
+		super();
+		this.ppsField = ppsField;
+		this.surnameField = surnameField;
+		this.firstNameField = firstNameField;
+		this.salaryField = salaryField;
+		this.genderCombo = genderCombo;
+		this.departmentCombo = departmentCombo;
+		this.fullTimeCombo = fullTimeCombo;
+	}
+
 	String generatedFileName;
 	
-	public static boolean checkInput(JTextField ppsField, JTextField surnameField, JTextField firstNameField, JComboBox<String> genderCombo, JComboBox departmentCombo, JTextField salaryField, JComboBox fullTimeCombo ) {
+	public static boolean checkInput(Validate validation ) {
 		boolean valid = true;
-		if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
-			ppsField.setBackground(Colours.red);
+		if (validation.getPpsField().isEditable() && validation.getPpsField().getText().trim().isEmpty()) {
+			validation.getPpsField().setBackground(Colours.red);
 			valid = false;
 		}
-		if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
-			surnameField.setBackground(Colours.red);
+		if (validation.getSurnameField().isEditable() && validation.getSurnameField().getText().trim().isEmpty()) {
+			validation.getSurnameField().setBackground(Colours.red);
 			valid = false;
 		} 
-		if (firstNameField.isEditable() && firstNameField.getText().trim().isEmpty()) {
-			firstNameField.setBackground(Colours.red);
+		if (validation.getFirstNameField().isEditable() && validation.getFirstNameField().getText().trim().isEmpty()) {
+			validation.getFirstNameField().setBackground(Colours.red);
 			valid = false;
 		} 
-		if (genderCombo.getSelectedIndex() == 0 && genderCombo.isEnabled()) {
-			genderCombo.setBackground(Colours.red);
+		if (validation.getGenderCombo().getSelectedIndex() == 0 && validation.getGenderCombo().isEnabled()) {
+			validation.getGenderCombo().setBackground(Colours.red);
 			valid = false;
 		}
-		if (departmentCombo.getSelectedIndex() == 0 && departmentCombo.isEnabled()) {
-			departmentCombo.setBackground(Colours.red);
+		if (validation.getDepartmentCombo().getSelectedIndex() == 0 && validation.getDepartmentCombo().isEnabled()) {
+			validation.getDepartmentCombo().setBackground(Colours.red);
 			valid = false;
 		} 
 		try {
-			Double.parseDouble(salaryField.getText());
-			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(Colours.red);
+			Double.parseDouble(validation.getSalaryField().getText());
+			if (Double.parseDouble(validation.getSalaryField().getText()) < 0) {
+				validation.getSalaryField().setBackground(Colours.red);
 				valid = false;
 			}
 		}
 		catch (NumberFormatException num) {
-			if (salaryField.isEditable()) {
-				salaryField.setBackground(Colours.red);
+			if (validation.getSalaryField().isEditable()) {
+				validation.getSalaryField().setBackground(Colours.red);
 				valid = false;
 			} 
 		} 
-		if (fullTimeCombo.getSelectedIndex() == 0 && fullTimeCombo.isEnabled()) {
-			fullTimeCombo.setBackground(Colours.red);
+		if (validation.getFullTimeCombo().getSelectedIndex() == 0 && validation.getFullTimeCombo().isEnabled()) {
+			validation.getFullTimeCombo().setBackground(Colours.red);
 			valid = false;
 		} 
 		if (!valid){
@@ -61,6 +71,62 @@ public class Validate {
 		}
 
 		return valid;
+	}
+
+	public JTextField getPpsField() {
+		return ppsField;
+	}
+
+	public void setPpsField(JTextField ppsField) {
+		this.ppsField = ppsField;
+	}
+
+	public JTextField getSurnameField() {
+		return surnameField;
+	}
+
+	public void setSurnameField(JTextField surnameField) {
+		this.surnameField = surnameField;
+	}
+
+	public JTextField getFirstNameField() {
+		return firstNameField;
+	}
+
+	public void setFirstNameField(JTextField firstNameField) {
+		this.firstNameField = firstNameField;
+	}
+
+	public JTextField getSalaryField() {
+		return salaryField;
+	}
+
+	public void setSalaryField(JTextField salaryField) {
+		this.salaryField = salaryField;
+	}
+
+	public JComboBox<String> getGenderCombo() {
+		return genderCombo;
+	}
+
+	public void setGenderCombo(JComboBox<String> genderCombo) {
+		this.genderCombo = genderCombo;
+	}
+
+	public JComboBox<String> getDepartmentCombo() {
+		return departmentCombo;
+	}
+
+	public void setDepartmentCombo(JComboBox<String> departmentCombo) {
+		this.departmentCombo = departmentCombo;
+	}
+
+	public JComboBox<String> getFullTimeCombo() {
+		return fullTimeCombo;
+	}
+
+	public void setFullTimeCombo(JComboBox<String> fullTimeCombo) {
+		this.fullTimeCombo = fullTimeCombo;
 	}
 	
 	
